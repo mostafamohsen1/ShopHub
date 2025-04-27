@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopHub - Premium Shopping Experience</title>
+  <meta name="description" content="Discover the latest products with the best deals at ShopHub. Electronics, fashion, home goods and more with fast shipping and easy returns.">
+  <meta name="keywords" content="shop, e-commerce, online shopping, electronics, fashion, home goods">
+  <meta name="author" content="ShopHub">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4e54c8;
+      --primary-color-light: #8f94fb;
+      --secondary-color: #ff6b6b;
+      --dark-text: #333;
+      --light-text: #777;
+      --border-color: #ddd;
+      --light-bg: #f9f9f9;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: var(--dark-text);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    
+    /* Header Styles */
+    header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+    }
+    
+    .logo a {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--dark-text);
+      text-decoration: none;
+    }
+    
+    .logo span {
+      color: var(--primary-color);
+    }
+    
+    /* Main Content */
+    main {
+      padding: 40px 0;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .section-header h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    
+    /* Products Grid */
+    .products-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
+    
+    .product-image {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .product-card:hover .product-image img {
+      transform: scale(1.05);
+    }
+    
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      z-index: 2;
+    }
+    
+    .product-info {
+      padding: 15px;
+    }
+    
+    .product-category {
+      font-size: 14px;
+      color: var(--light-text);
+      margin-bottom: 5px;
+    }
+    
+    .product-name {
+      font-size: 18px;
+      margin: 5px 0 10px;
+    }
+    
+    .product-rating {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .product-rating i {
+      color: #ffc107;
+      font-size: 14px;
+    }
+    
+    .product-rating span {
+      color: var(--light-text);
+      margin-left: 5px;
+      font-size: 14px;
+    }
+    
+    .product-price {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .current-price {
+      font-weight: 600;
+      font-size: 18px;
+      color: var(--primary-color);
+    }
+    
+    .old-price {
+      font-size: 14px;
+      text-decoration: line-through;
+      color: var(--light-text);
+    }
+    
+    /* Category Filter Buttons */
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    
+    .filter-btn {
+      padding: 8px 16px;
+      background-color: var(--light-bg);
+      border: none;
+      border-radius: 4px;
+      color: var(--dark-text);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+    
+    .filter-btn:hover {
+      background-color: var(--primary-color-light);
+      color: white;
+    }
+    
+    .filter-btn.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Navigation -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <div class="logo">
+          <a href="index.html">Shop<span>Hub</span></a>
+        </div>
+        
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        
+        <!-- Navigation Bar -->
+        <div class="nav-bar">
+          <!-- Search Bar -->
+          <div class="search-wrapper">
+            <div class="search-container">
+              <input type="text" placeholder="Search products..." id="search-input" class="search-input">
+              <button class="search-btn" id="search-btn"><i class="fas fa-search"></i></button>
+              <div class="search-results" id="search-results"></div>
+            </div>
+          </div>
+          
+          <!-- Navigation Items -->
+          <div class="nav-items">
+            <!-- Sign In -->
+            <div class="nav-item user-account">
+              <button type="button" class="account-btn" id="account-btn">
+                <i class="fas fa-user"></i>
+                <span>Sign In</span>
+              </button>
+              <div class="account-dropdown">
+                <div class="auth-tabs">
+                  <div class="auth-tab active" data-tab="login">Sign In</div>
+                  <div class="auth-tab" data-tab="register">Register</div>
+                </div>
+                
+                <!-- Login Form -->
+                <form class="login-form auth-form active" id="login-form">
+                  <h3>Welcome Back</h3>
+                  <p class="form-subtitle">Sign in to your account</p>
+                  
+                  <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <div class="input-with-icon">
+                      <i class="fas fa-envelope"></i>
+                      <input type="email" id="login-email" placeholder="Your email address" required>
+                    </div>
+                    <small class="form-text">Enter your registered email address</small>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <div class="input-with-icon password-input">
+                      <i class="fas fa-lock"></i>
+                      <input type="password" id="login-password" placeholder="Your password" required>
+                      <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </div>
+                    <small class="form-text password-hint">
+                      <span class="hint-icon">?</span> 
+                      Password should be at least 8 characters
+                    </small>
+                  </div>
+                  
+                  <div class="form-options">
+                    <label class="checkbox-container">
+                      <input type="checkbox" id="remember-me">
+                      <span class="checkmark"></span>
+                      Remember me
+                    </label>
+                    <a href="#" class="forgot-password" id="forgot-link">Forgot Password?</a>
+                  </div>
+                  
+                  <button type="submit" class="btn primary-btn login-btn">Sign In</button>
+                  
+                  <div class="social-login">
+                    <p>Or sign in with</p>
+                    <div class="social-buttons">
+                      <button type="button" class="social-btn google"><i class="fab fa-google"></i></button>
+                      <button type="button" class="social-btn facebook"><i class="fab fa-facebook-f"></i></button>
+                      <button type="button" class="social-btn apple"><i class="fab fa-apple"></i></button>
+                    </div>
+                  </div>
+                  
+                  <!-- Password Reset Form (initially hidden) -->
+                  <div class="password-reset-form" id="password-reset-form" style="display: none;">
+                    <h4>Reset Your Password</h4>
+                    <p>Enter your email to receive reset instructions</p>
+                    <div class="form-group">
+                      <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="reset-email" placeholder="Your email address" required>
+                      </div>
+                    </div>
+                    <div class="form-buttons">
+                      <button type="button" class="btn outline-btn back-btn">Back</button>
+                      <button type="button" class="btn primary-btn reset-btn">Send Reset Link</button>
+                    </div>
+                  </div>
+                </form>
+                
+                <!-- Register Form -->
+                <form class="register-form auth-form" id="register-form">
+                  <h3>Create Account</h3>
+                  <p class="form-subtitle">Join us today</p>
+                  
+                  <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <div class="input-with-icon">
+                      <i class="fas fa-user"></i>
+                      <input type="text" id="register-name" placeholder="Your full name" required>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <div class="input-with-icon">
+                      <i class="fas fa-envelope"></i>
+                      <input type="email" id="register-email" placeholder="Your email address" required>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="register-phone">Phone Number</label>
+                    <div class="input-with-icon">
+                      <i class="fas fa-phone"></i>
+                      <input type="tel" id="register-phone" placeholder="Your phone number">
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="register-address">Address</label>
+                    <div class="input-with-icon">
+                      <i class="fas fa-home"></i>
+                      <input type="text" id="register-address" placeholder="Your street address">
+                    </div>
+                  </div>
+                  
+                  <div class="form-row">
+                    <div class="form-group half">
+                      <label for="register-city">City</label>
+                      <input type="text" id="register-city" placeholder="City">
+                    </div>
+                    <div class="form-group half">
+                      <label for="register-zip">Zip Code</label>
+                      <input type="text" id="register-zip" placeholder="Zip code">
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="register-country">Country</label>
+                    <select id="register-country">
+                      <option value="">Select your country</option>
+                      <option value="US">United States</option>
+                      <option value="CA">Canada</option>
+                      <option value="UK">United Kingdom</option>
+                      <option value="AU">Australia</option>
+                      <option value="DE">Germany</option>
+                      <option value="FR">France</option>
+                      <option value="JP">Japan</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <div class="input-with-icon">
+                      <i class="fas fa-lock"></i>
+                      <input type="password" id="register-password" placeholder="Create a password" required>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <div class="input-with-icon">
+                      <i class="fas fa-lock"></i>
+                      <input type="password" id="register-confirm" placeholder="Confirm your password" required>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="register-birth-date">Birth Date</label>
+                    <div class="input-with-icon">
+                      <i class="fas fa-calendar"></i>
+                      <input type="date" id="register-birth-date">
+                    </div>
+                  </div>
+                  
+                  <div class="form-options">
+                    <label class="checkbox-container">
+                      <input type="checkbox" id="terms" required>
+                      <span class="checkmark"></span>
+                      I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
+                    </label>
+                  </div>
+                  
+                  <div class="form-options">
+                    <label class="checkbox-container">
+                      <input type="checkbox" id="newsletter">
+                      <span class="checkmark"></span>
+                      Subscribe to newsletter for exclusive offers
+                    </label>
+                  </div>
+                  
+                  <button type="submit" class="btn primary-btn register-btn">Create Account</button>
+                </form>
+              </div>
+            </div>
+            
+            <!-- Shopping Bag -->
+            <div class="nav-item shopping-bag">
+              <button class="bag-btn" id="bag-btn" onclick="openCartSidebar()">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="bag-count" id="bag-count">0</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Account Overlay (moved outside for better coverage) -->
+  <div class="overlay" id="account-overlay"></div>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Summer Collection <span>2023</span></h1>
+        <p>Discover the latest trends with up to 40% off</p>
+        <div class="hero-buttons">
+          <a href="#all-products" class="btn primary-btn">Shop Now</a>
+          <a href="#" class="btn outline-btn">Learn More</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?q=80&w=800" alt="Summer Collection">
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-truck"></i>
+          </div>
+          <div class="feature-info">
+            <h3>Free Shipping</h3>
+            <p>On all orders over $50</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-undo"></i>
+          </div>
+          <div class="feature-info">
+            <h3>Easy Returns</h3>
+            <p>30-day return policy</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="feature-info">
+            <h3>Secure Payment</h3>
+            <p>100% secure checkout</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <div class="feature-info">
+            <h3>24/7 Support</h3>
+            <p>Dedicated customer service</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Categories -->
+  <section class="featured-categories">
+    <div class="container">
+      <div class="section-header">
+        <h2>Shop by Category</h2>
+        <p>Browse our most popular categories</p>
+      </div>
+      <div class="categories-grid">
+        <a href="#" class="category-card category-electronics">
+          <div class="category-content">
+            <h3>Electronics</h3>
+            <p>120+ Products</p>
+          </div>
+        </a>
+        <a href="#" class="category-card category-fashion">
+          <div class="category-content">
+            <h3>Fashion</h3>
+            <p>250+ Products</p>
+          </div>
+        </a>
+        <a href="#" class="category-card category-home">
+          <div class="category-content">
+            <h3>Home & Kitchen</h3>
+            <p>180+ Products</p>
+          </div>
+        </a>
+        <a href="#" class="category-card category-beauty">
+          <div class="category-content">
+            <h3>Beauty & Health</h3>
+            <p>90+ Products</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- All Products Section -->
+    <section id="all-products" class="products-section">
+      <div class="section-header">
+        <h2>All Products</h2>
+        <p>Browse our complete collection</p>
+      </div>
+      
+      <!-- Category Filters -->
+      <div id="category-filters" class="filter-buttons">
+        <!-- Filter buttons will be dynamically generated -->
+      </div>
+      
+      <!-- Products Container -->
+      <div class="products-container" id="products-container">
+        <!-- Products will be dynamically generated -->
+        
+        <!-- Static product examples to ensure visibility -->
+        <div class="product-card" data-id="1" data-category="Electronics">
+          <div class="product-badge sale">SALE</div>
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=500" alt="MacBook Pro">
+          </div>
+          <div class="product-info">
+            <div class="product-category">Electronics</div>
+            <h3 class="product-name">MacBook Pro 2024</h3>
+            <div class="product-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <span>(42)</span>
+            </div>
+            <div class="product-price">
+              <span class="old-price">$1299.99</span>
+              <span class="current-price">$1099.99</span>
+            </div>
+            <button class="add-to-cart-btn full-width" data-id="1">
+              <i class="fas fa-shopping-cart"></i>
+              <span>Add to Cart</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="product-card" data-id="11" data-category="Fashion">
+          <div class="product-badge sale">SALE</div>
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?q=80&w=500" alt="Premium Leather Jacket">
+          </div>
+          <div class="product-info">
+            <div class="product-category">Fashion</div>
+            <h3 class="product-name">Premium Leather Jacket</h3>
+            <div class="product-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <span>(86)</span>
+            </div>
+            <div class="product-price">
+              <span class="old-price">$349.99</span>
+              <span class="current-price">$249.99</span>
+            </div>
+            <button class="add-to-cart-btn full-width" data-id="11">
+              <i class="fas fa-shopping-cart"></i>
+              <span>Add to Cart</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="product-card" data-id="14" data-category="Home & Kitchen">
+          <div class="product-badge sale">SALE</div>
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1585515320310-259814833e62?q=80&w=500" alt="Smart Coffee Maker">
+          </div>
+          <div class="product-info">
+            <div class="product-category">Home & Kitchen</div>
+            <h3 class="product-name">Smart Coffee Maker</h3>
+            <div class="product-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <span>(93)</span>
+            </div>
+            <div class="product-price">
+              <span class="old-price">$189.99</span>
+              <span class="current-price">$149.99</span>
+            </div>
+            <button class="add-to-cart-btn full-width" data-id="14">
+              <i class="fas fa-shopping-cart"></i>
+              <span>Add to Cart</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Quick View Modal -->
+  <div id="quick-view-modal" class="modal">
+    <div class="modal-content" id="quick-view-content">
+      <!-- Product details will be loaded dynamically -->
+    </div>
+    <button id="close-quick-view" class="close-modal"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="overlay" id="modal-overlay"></div>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button id="close-cart" onclick="closeCartSidebar()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <!-- Cart items will be added dynamically -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cart-total">$0.00</span>
+      </div>
+      <button class="btn primary-btn" id="checkout-btn">Checkout</button>
+    </div>
+  </div>
+  <div class="overlay" id="cart-overlay" onclick="closeCartSidebar()"></div>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-container">
+        <div class="newsletter-content">
+          <h2>Subscribe to Our Newsletter</h2>
+          <p>Get the latest updates on new products and upcoming sales</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit" class="btn primary-btn">Subscribe</button>
+          </form>
+          <div class="newsletter-notice">
+            <i class="fas fa-shield-alt"></i>
+            <p>We respect your privacy and will never share your information</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>ShopHub</h3>
+          <p>Your premium shopping destination for fashion, electronics, and more. Quality products at competitive prices.</p>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Shop</h3>
+          <ul>
+            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Fashion</a></li>
+            <li><a href="#">Home & Kitchen</a></li>
+            <li><a href="#">Sports & Outdoors</a></li>
+            <li><a href="#">Beauty & Health</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Customer Service</h3>
+          <ul>
+            <li><a href="#">My Account</a></li>
+            <li><a href="#">Track My Order</a></li>
+            <li><a href="#">Returns & Exchanges</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Help Center</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Contact Us</h3>
+          <ul class="contact-info">
+            <li><i class="fas fa-map-marker-alt"></i> 1234 Main Street, City, Country</li>
+            <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+            <li><i class="fas fa-envelope"></i> support@shophub.com</li>
+            <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="copyright">
+          <p>&copy; 2023 ShopHub. All Rights Reserved.</p>
+        </div>
+        <div class="payment-methods">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-amex"></i>
+          <i class="fab fa-cc-paypal"></i>
+          <i class="fab fa-cc-apple-pay"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="main.js"></script>
+</body>
+</html>
